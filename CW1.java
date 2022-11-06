@@ -63,7 +63,6 @@ public class CW1
             System.out.print("Please Enter An Option... : ");
             String option = input.nextLine();
             System.out.println();
-            //System.out.println("You entered string " + option);
 
             switch (option)
             {
@@ -72,6 +71,8 @@ public class CW1
                 case "5":
                 {
                     stop = true;
+                    System.out.println("Exiting...");
+                    System.out.println();
                     break;
                 }
 
@@ -94,7 +95,7 @@ public class CW1
                         System.out.print("Please Enter Number Of Streams... : ");
                         Integer Streams = input.nextInt();
                         input.nextLine();
-                        AddSong(SongName, ArtistName, Streams); //
+                        AddSong(SongName, ArtistName, Streams); 
 
                     }
 
@@ -122,7 +123,7 @@ public class CW1
                         Integer songIndex = input.nextInt();
                         input.nextLine();
 
-                        if ((songRecords.size() > (songIndex-1)) && ((songIndex-1) >= 0)) { //
+                        if ((songRecords.size() > (songIndex-1)) && ((songIndex-1) >= 0)) { 
                             RemoveSongByIndex((songIndex-1)); 
                         } else {
                             System.out.println("Index out of range, try again...");
@@ -169,7 +170,7 @@ public class CW1
                         }
                     }
                     catch(Exception e) {
-                        
+
                         System.out.println(e.getMessage());
                         input.nextLine();
                     }
@@ -183,8 +184,6 @@ public class CW1
 
                 break;
                 }
-
-
             }
         }
         input.close();
