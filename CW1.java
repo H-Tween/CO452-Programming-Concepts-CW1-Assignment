@@ -21,6 +21,10 @@ public class CW1
         }
     }
 
+    public static void RemoveSongByIndex(Integer songIndex) {
+        songRecords.remove((int)songIndex);
+    }
+
     public static void main(String[] args)
     {
 
@@ -42,7 +46,7 @@ public class CW1
         System.out.println();
         System.out.println("by Harrison Tween");
 
-
+        Scanner input = new Scanner(System.in);
 
         while (!stop) {
 
@@ -56,16 +60,15 @@ public class CW1
             System.out.println("5. Quit: Q|q");
             System.out.println();
 
-            Scanner input = new Scanner(System.in);
             System.out.print("Please Enter An Option... : ");
             String option = input.nextLine();
-            System.out.println("You entered string " + option);
-
-            input.close();
+            System.out.println();
+            //System.out.println("You entered string " + option);
 
             switch (option)
             {
                 case "Q":
+                case "q":
                 case "5":
                 {
                     stop = true;
@@ -76,27 +79,31 @@ public class CW1
                 case "a":
                 case "1":
                 {
-                    System.out.println("Please Enter Song Name...");
-                    Scanner songName = new Scanner(System.in);
-                    String SongName = songName.nextLine();
-                    songName.close();
-                    System.out.println("You entered string " + SongName);
+                    System.out.print("Please Enter Song Name... : ");
+                    String SongName = input.nextLine();
 
                     System.out.println();
 
-                    System.out.println("Please Enter Artist...");
-                    Scanner artistName = new Scanner(System.in);
-                    String ArtistName = artistName.nextLine();
-                    artistName.close();
+                    System.out.print("Please Enter Artist... : ");
+                    String ArtistName = input.nextLine();
 
+                    System.out.println();
 
-                    System.out.println("Please Enter Number Of Streams...");
-                    Scanner streams = new Scanner(System.in);
-                    Integer Streams = streams.nextInt();
-                    streams.close();
+                    try {
 
+                        System.out.print("Please Enter Number Of Streams... : ");
+                        Integer Streams = input.nextInt();
+                        input.nextLine();
+                        AddSong(SongName, ArtistName, Streams); //
 
-                    AddSong(SongName, ArtistName, Streams); //
+                    }
+
+                    catch(Exception e) {
+
+                        System.out.println(e.getMessage());
+                        input.nextLine();
+                        
+                    }
                     break;
                 }
 
@@ -104,23 +111,30 @@ public class CW1
                 case "r":
                 case "2":
                 {
-                    Integer count = 0;
                     for (SongRecord songRecord : songRecords) {
-                        count += 1;
-                        System.out.println("Song " + count + ": " + songRecord.PrintDetails());
+                        int index = songRecords.indexOf((songRecord));
+                        System.out.println("Song Index: " + (index+1) + " | Song Details: " + songRecord.PrintDetails());
                     }
 
-                    System.out.println("Please Enter Song Name...");
-                    Scanner songName = new Scanner(System.in);
-                    String SongName = songName.nextLine();
-                    songName.close();
-
-                    if (songRecords.contains(SongName)) { //
-                        RemoveSong(SongName); 
-                    } else {
-                        System.out.println("No song with that name was found...");
+                    try {
                         System.out.println();
+                        System.out.print("Please Enter Song Index... : ");
+                        Integer songIndex = input.nextInt();
+                        input.nextLine();
+
+                        if ((songRecords.size() > (songIndex-1)) && ((songIndex-1) >= 0)) { //
+                            RemoveSongByIndex((songIndex-1)); 
+                        } else {
+                            System.out.println("Index out of range, try again...");
+                        }
                     }
+                    catch(Exception e) {
+
+                        System.out.println(e.getMessage());
+                        input.nextLine();
+
+                    }
+
                     break;
                 }
 
@@ -140,18 +154,26 @@ public class CW1
                 case "l":
                 case "L":
                 {
-                    System.out.println("Please Enter Number Of Streams...");
-                    Scanner streams = new Scanner(System.in);
-                    Integer Streams = streams.nextInt();
-                    streams.close();
+                    System.out.print("Please Enter Number Of Streams... : ");
 
-                    Integer count = 0;
-                    for (SongRecord songRecord : songRecords) {
-                        if (songRecord.PlayCount > Streams) {
-                            count += 1;
-                            System.out.println("Song " + count + " " + songRecord.PrintDetails());  
+                    try {
+                        Integer Streams = input.nextInt();
+                        input.nextLine();
+                        System.out.println();
+                        Integer count = 0;
+                        for (SongRecord songRecord : songRecords) {
+                            if (songRecord.PlayCount > Streams) {
+                                count += 1;
+                                System.out.println("Song " + count + " " + songRecord.PrintDetails());  
+                            }
                         }
                     }
+                    catch(Exception e) {
+                        
+                        System.out.println(e.getMessage());
+                        input.nextLine();
+                    }
+
                     break;
                 }
 
@@ -164,39 +186,7 @@ public class CW1
 
 
             }
-            Integer count = 0;
-            for (SongRecord songRecord : songRecords) {
-                count += 1;
-                System.out.println("Song " + count + ": " + songRecord.PrintDetails());             
-            }    
         }
-
-
-        
-       
-        // for(int i=0; i<music.length; i++) {
-        //     System.out.println();
-        //     for(int j=0; j<music[i].length; j++) {
-        //         System.out.print(music[i][j]+ " ");
-        //     }
-        // }
-
-        // System.out.print(music[0]);
-
-        // Music<String, String, Integer> music = new Music<String, String, Integer>("A", "B", 3);
-
-        
-        // String[][] Music = { {"Beautiful", "Anne-Marie", "863015"}, 
-        //                     {"Bad Habits", "Ed Sheeran", "127191452"}, 
-        //                     {"Halo", "Beyonce", "991888598"}, 
-        //                     {"Clash",  "Dave (feat. Stormzy)", "7070513"}, 
-        //                     {"It Gets Better", "Swedish House Mafia", "7563930"} };
-
-        // System.out.println(Arrays.toString(Music));
-        
-        // int Music[][] = new int[5][3];
-
-
-       // String[][][] Music = { {"Beautiful", }, {"Anne-Marie",}, {863015,} };
+        input.close();
     }
 }
